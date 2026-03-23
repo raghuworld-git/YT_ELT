@@ -75,6 +75,7 @@ def extract_video_details(video_ids)-> list:
                 video_id = item["id"]
                 title = item["snippet"]["title"]
                 published_at = item["snippet"]["publishedAt"]
+                duration = item["contentDetails"]["duration"]
                 view_count = item["statistics"].get("viewCount",0)
                 like_count = item["statistics"].get("likeCount",0)
                 comment_count = item["statistics"].get("commentCount",0)
@@ -83,6 +84,7 @@ def extract_video_details(video_ids)-> list:
                     "video_id": video_id,
                     "title": title,
                     "published_at": published_at,
+                    "duration":duration,
                     "view_count": view_count,
                     "like_count": like_count,
                     "comment_count": comment_count
