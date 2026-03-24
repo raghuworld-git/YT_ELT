@@ -4,7 +4,7 @@ from datetime import date
 
 logger = logging.getLogger(__name__)
 
-def load_paths():
+def load_data():
     file_path = f"./data/YT_data_{date.today()}.json"
 
     try:

@@ -8,16 +8,20 @@ def insert_rows(conn,cur,schema,row):
         if schema == 'staging':
             video_id ='video_id'
             cur.execute(
-                f"""INSERT INTO {schema}.{table}(Video_ID,Video_Title,Upload_Date,Duration,Videos_Views,Likes_Count,Comments_count)
-                VALUES(%(video_id)s,%(title)s,%(published_at)s,%(duration)s,%(view_count)s,%(like_count)s,%(comment_count)s)
-                """,row
-            )
+                    f"""
+                    INSERT INTO {schema}.{table}("Video_ID", "Video_Title", "Upload_Date", "Duration", "Video_Views", "Likes_Count", "Comments_Count")
+                    VALUES (%(video_id)s, %(title)s, %(published_at)s, %(duration)s, %(view_count)s, %(like_count)s, %(comment_count)s);
+                    """,
+                    row,
+                )
         else :
             video_id="Video_ID"
             cur.execute(
-                f"""INSERT INTO {schema}.{table}(Video_ID,Video_Title,Upload_Date,Duration,Videos_Views,Likes_Count,Comments_count)
-                VALUES(%(Video_ID)s,%(Video_Title)s,%(Upload_Date)s,%(Duration)s,%(Videos_Views)s,%(Likes_Count)s,%(Comments_count)s)
-                """,row
+                f"""
+                INSERT INTO {schema}.{table}("Video_ID", "Video_Title", "Upload_Date", "Duration", "Video_Type", "Video_Views", "Likes_Count", "Comments_Count")
+                VALUES (%(Video_ID)s, %(Video_Title)s, %(Upload_Date)s, %(Duration)s, %(Video_Type)s, %(Video_Views)s, %(Likes_Count)s, %(Comments_Count)s)
+                """,
+                row,
             )
         conn.commit()
         logger.info(f"Inserted row successfully with videoid : {row[video_id]}")
@@ -47,7 +51,7 @@ def update_rows(conn,cur,schema,row):
                 f"""
                 UPDATE {schema}.{table}
                 SET "Video_Title" = %({video_title})s,
-                    "Videos_Views" = %({video_views})s, 
+                    "Video_Views" = %({video_views})s, 
                     "Likes_Count" = %({likes_count})s, 
                     "Comments_Count" = %({comments_count})s
                 WHERE "Video_ID" = %({video_id})s AND "Upload_Date" = %({upload_date})s;
@@ -59,7 +63,7 @@ def update_rows(conn,cur,schema,row):
         logger.info(f"Updated row with Video_ID: {row[video_id]}")
 
     except Exception as e:
-        logger.error(f"Error updating row with Video_ID: {row[video_id]} - {e}")
+        logger.error(f"Error updating row with Video_ID: {row[video_id]} - Schema : {schema} : {e}")
         raise e
     
 
