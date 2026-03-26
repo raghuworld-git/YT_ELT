@@ -43,7 +43,7 @@ def update_rows(conn,cur,schema,row):
             video_id = "Video_ID"
             upload_date = "Upload_Date"
             video_title = "Video_Title"
-            video_views = "Videos_Views"
+            video_views = "Video_Views"
             likes_count = "Likes_Count"
             comments_count = "Comments_count"
         
